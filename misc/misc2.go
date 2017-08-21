@@ -128,6 +128,7 @@ func MyAtoi(str string) int {
 	}
 	return r
 }
+
 func MajorityElement(nums []int) int {
 	seen := map[int]int{}
 	nlen := len(nums)
@@ -148,9 +149,70 @@ func MajorityElement(nums []int) int {
 	}
 	return maxn
 }
-func LargestNumber(nums []int) string {
-	return "2"
+
+// https://leetcode.com/problems/length-of-last-word/description/
+// my: https://leetcode.com/submissions/detail/114918067/
+func LengthOfLastWord(s string) int {
+	r := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		if r != 0 && unicode.IsSpace(rune(s[i])) {
+			return r
+		}
+		if !unicode.IsSpace(rune(s[i])) {
+			r++
+		}
+	}
+	return r
 }
+
+type TreeNode struct {
+    Val int
+    Left *TreeNode
+    Right *TreeNode
+}
+
+func TestTreeNode() *TreeNode {
+	return &TreeNode{
+		Val: 1,
+		Left: &TreeNode{
+			Val: 5,
+			Left: &TreeNode{
+				Val: 4},
+			Right: &TreeNode{
+				Val: 12}},
+		Right: &TreeNode{
+			Val: 8,
+			Right: &TreeNode{
+				Val: -1 }}}}
+
+// LeetCode: https://leetcode.com/problems/path-sum/description/
+// my: https://leetcode.com/submissions/detail/114920149/
+func HasPathSum(root *TreeNode, sum int) bool {
+	if root == nil {
+		return false
+	}
+	sum -= root.Val
+	if root.Left == nil && root.Right == nil {
+		return sum == 0
+	}
+	return HasPathSum(root.Left, sum) || HasPathSum(root.Right, sum)
+}
+
+// LeetCode: https://leetcode.com/problems/climbing-stairs/description/
+// my: https://leetcode.com/submissions/detail/114922894/
+// fibonacci
+func ClimbStairs(n int) int {
+	if n < 2 {
+		return 1
+	}
+	l1 := 1
+	l2 := 1
+	for i := 2; i <= n; i++ {
+		l1, l2 = l2, l1 + l2
+	}
+	return l2
+}
+
 func fmtholder() {
 	fmt.Println("test")
 }

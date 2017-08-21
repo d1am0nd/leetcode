@@ -30,12 +30,16 @@ func main() {
 	// misc.MergeTwoLists(&t, nil)
 
 	// myAtoi()
-    // majorityElement()
+	// majorityElement()
+	// largestNumber()
+	// removeDuplicates()
+	// hasPathSum()
 
-    largestNumber()
+    climbStairs()
 
 	// fmt.Println(4/(-2))
 }
+
 // 1 2 3 123 122 111 12
 // .1 .2 .3 .123 .122 .111 0.12
 // 3 2 1 123 122 12 111
@@ -43,16 +47,30 @@ func main() {
 //
 // 88 9 8 71 92 134 921 989 9
 // 998 989
-//
-
-func largestNumber() {
-    fmt.Println(LargestNumber([]int{1, 32, 43, 34, 3, 100}))
+func climbStairs() {
+    fmt.Println(misc.ClimbStairs(11))
 }
 
+func hasPathSum() {
+	fmt.Println(misc.HasPathSum(misc.TestTreeNode(), 8))
+}
+func lengthOfLastWord() {
+	fmt.Println(misc.LengthOfLastWord("test 123123 123"))
+}
+func removeDuplicates() {
+	fmt.Println(misc.RemoveDuplicates([]int{1, 1, 2, 3, 4, 4, 5, 5, 5}))
+	fmt.Println(misc.RemoveDuplicates([]int{}))
+	fmt.Println(misc.RemoveDuplicates([]int{-12, -11, -9, -9, 0, 12, 33, 33, 33}))
+}
+
+// func largestNumber() {
+// 	fmt.Println(misc.LargestNumber([]int{1, 32, 43, 34, 3, 100}))
+// }
+
 func majorityElement() {
-    fmt.Println(misc.MajorityElement([]int{1, 2, 2, 2, 2, 3, 3, 6, 4}))
-    fmt.Println(misc.MajorityElement([]int{3, 4, 5, 6, 6, 6}))
-    fmt.Println(misc.MajorityElement([]int{1, 2, 2, 2, 2, 3, 3, 6, 4}))
+	fmt.Println(misc.MajorityElement([]int{1, 2, 2, 2, 2, 3, 3, 6, 4}))
+	fmt.Println(misc.MajorityElement([]int{3, 4, 5, 6, 6, 6}))
+	fmt.Println(misc.MajorityElement([]int{1, 2, 2, 2, 2, 3, 3, 6, 4}))
 }
 
 func myAtoi() {

@@ -314,6 +314,27 @@ func IsValid(s string) bool {
 	return true
 }
 
+// LeetCode: https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+// my: https://leetcode.com/submissions/detail/114906036/
+func RemoveDuplicates(nums []int) int {
+    remlen := len(nums)
+    for i := 0; i < (remlen - 1); i++ {
+        if nums[i] == nums[i + 1] {
+            sameCount := 1
+            for j := i + 1; j < remlen - 1; j++ {
+                if nums[j] != nums[j + 1] {
+                    break
+                }
+                sameCount++
+            }
+            nums = append(nums[:i], nums[i + sameCount:]...)
+            i--
+            remlen -= sameCount
+        }
+    }
+    return remlen
+}
+
 // To get around go nazism
 func FmtTest() {
 	fmt.Println("Works")
