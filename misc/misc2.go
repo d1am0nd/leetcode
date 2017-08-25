@@ -2,8 +2,10 @@ package misc
 
 import (
 	"fmt"
+	"time"
 	"math"
 	"unicode"
+	"math/rand"
 )
 
 type ListNode struct {
@@ -211,6 +213,38 @@ func ClimbStairs(n int) int {
 		l1, l2 = l2, l1 + l2
 	}
 	return l2
+}
+
+// https://leetcode.com/problems/shuffle-an-array/description/
+//
+type Solution struct {
+	original []int
+}
+
+
+func Constructor(nums []int) Solution {
+	return Solution{original: nums}
+}
+
+
+/** Resets the array to its original configuration and return it. */
+func (this *Solution) Reset() []int {
+	return this.original
+}
+
+
+/** Returns a random shuffling of the array. */
+func (this *Solution) Shuffle() []int {
+	nlen := len(this.original)
+	shuffled := make([]int, nlen)
+	copy(shuffled, this.original)
+	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	for i := nlen - 1; i > 0; i-- {
+		swapi := rnd.Intn(i)
+		shuffled[i], shuffled[swapi] = shuffled[swapi], shuffled[i]
+	}
+	return shuffled
 }
 
 func fmtholder() {

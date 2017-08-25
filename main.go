@@ -34,8 +34,9 @@ func main() {
 	// largestNumber()
 	// removeDuplicates()
 	// hasPathSum()
+    // climbStairs()
 
-    climbStairs()
+	shuffle()
 
 	// fmt.Println(4/(-2))
 }
@@ -47,6 +48,13 @@ func main() {
 //
 // 88 9 8 71 92 134 921 989 9
 // 998 989
+func shuffle() {
+	s := misc.Constructor([]int{1,2,3,4,5,6,7,8})
+	fmt.Println(s.Shuffle())
+	fmt.Println(s.Reset())
+	fmt.Println(s.Shuffle())
+}
+
 func climbStairs() {
     fmt.Println(misc.ClimbStairs(11))
 }
