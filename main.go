@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	// "time"
+	_ "math"
 
 	"algorithms/misc"
 	"algorithms/sort"
@@ -34,29 +36,97 @@ func main() {
 	// largestNumber()
 	// removeDuplicates()
 	// hasPathSum()
-    // climbStairs()
+	// climbStairs()
+	// shuffle()
 
-	shuffle()
+	// fizzBuzz()
+	// minStack()
+	// findPeakElement()
+
+	a := []int{1,
+		32,
+		43,
+		34,
+		3}
+
+	fmt.Println("Sup boy", a)
+
+	/*
+		then := time.Now()
+		for i := 0; i < 10000000; i++ {
+			largestNumber()
+		}
+		fmt.Println(time.Since(then))
+		then2 := time.Now()
+		for i := 0; i < 10000000; i++ {
+			largestNumber2()
+		}
+		fmt.Println(time.Since(then2))
+	*/
+	/*
+		(largestNumber())
+	*/
 
 	// fmt.Println(4/(-2))
+}
+
+// 4334
+func largestNumber() {
+	(misc.LargestNumber([]int{1, 32, 43, 34, 3, 100, 1003210032, 43, 999999999999, 3, 10032, 43, 100321003210032, 3, 100}))
+	(misc.LargestNumber([]int{0, 0, 1, 0, 0}))
+	(misc.LargestNumber([]int{0, 0, 0}))
+	(misc.LargestNumber([]int{0, 0}))
+}
+func largestNumber2() {
+	(misc.LargestNumber2([]int{1, 32, 43, 34, 3, 100, 1003210032, 43, 999999999999, 3, 10032, 43, 100321003210032, 3, 100}))
+	(misc.LargestNumber2([]int{0, 0, 1, 0, 0}))
+	(misc.LargestNumber2([]int{0, 0, 0}))
+	(misc.LargestNumber2([]int{0, 0}))
+}
+
+func findPeakElement() {
+	fmt.Println(misc.FindPeakElement([]int{1, 2, 3, 4, 5, 6, 2, 1, 2, 3, 4, 5, 3, 2, 1}))
+	fmt.Println(misc.FindPeakElement([]int{}))
+	fmt.Println(misc.FindPeakElement([]int{3}))
+	fmt.Println(misc.FindPeakElement([]int{1, 2, 3}))
+	fmt.Println(misc.FindPeakElement([]int{3, 2, 4, 2, 3}))
+	fmt.Println(misc.FindPeakElement([]int{3, 2, 2, 2, 3}))
+	fmt.Println(misc.FindPeakElement([]int{3, 2, 1}))
+	fmt.Println(misc.FindPeakElement([]int{2, 2, 2, 2}))
+	fmt.Println(misc.FindPeakElement([]int{3, 2, 3, 2, 3}))
+}
+
+func minStack() {
+	minStack := misc.ConstructorMS()
+	minStack.Push(-2)
+	minStack.Push(0)
+	minStack.Push(-3)
+	minStack.Print()
+	fmt.Println(minStack.GetMin())
+	minStack.Pop()
+	minStack.Print()
+	fmt.Println(minStack.Top())
+	fmt.Println(minStack.GetMin())
+	minStack.Print()
 }
 
 // 1 2 3 123 122 111 12
 // .1 .2 .3 .123 .122 .111 0.12
 // 3 2 1 123 122 12 111
 // 3 2 123 122 12 111 1
-//
-// 88 9 8 71 92 134 921 989 9
-// 998 989
+func fizzBuzz() {
+	fmt.Println(misc.FizzBuzz(-1))
+}
+
 func shuffle() {
-	s := misc.Constructor([]int{1,2,3,4,5,6,7,8})
+	s := misc.Constructor([]int{1, 2, 3, 4, 5, 6, 7, 8})
 	fmt.Println(s.Shuffle())
 	fmt.Println(s.Reset())
 	fmt.Println(s.Shuffle())
 }
 
 func climbStairs() {
-    fmt.Println(misc.ClimbStairs(11))
+	fmt.Println(misc.ClimbStairs(11))
 }
 
 func hasPathSum() {
@@ -70,10 +140,6 @@ func removeDuplicates() {
 	fmt.Println(misc.RemoveDuplicates([]int{}))
 	fmt.Println(misc.RemoveDuplicates([]int{-12, -11, -9, -9, 0, 12, 33, 33, 33}))
 }
-
-// func largestNumber() {
-// 	fmt.Println(misc.LargestNumber([]int{1, 32, 43, 34, 3, 100}))
-// }
 
 func majorityElement() {
 	fmt.Println(misc.MajorityElement([]int{1, 2, 2, 2, 2, 3, 3, 6, 4}))

@@ -2,10 +2,11 @@ package misc
 
 import (
 	"fmt"
-	"time"
 	"math"
-	"unicode"
 	"math/rand"
+	"strconv"
+	"time"
+	"unicode"
 )
 
 type ListNode struct {
@@ -168,9 +169,9 @@ func LengthOfLastWord(s string) int {
 }
 
 type TreeNode struct {
-    Val int
-    Left *TreeNode
-    Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 func TestTreeNode() *TreeNode {
@@ -185,7 +186,8 @@ func TestTreeNode() *TreeNode {
 		Right: &TreeNode{
 			Val: 8,
 			Right: &TreeNode{
-				Val: -1 }}}}
+				Val: -1}}}
+}
 
 // LeetCode: https://leetcode.com/problems/path-sum/description/
 // my: https://leetcode.com/submissions/detail/114920149/
@@ -210,7 +212,7 @@ func ClimbStairs(n int) int {
 	l1 := 1
 	l2 := 1
 	for i := 2; i <= n; i++ {
-		l1, l2 = l2, l1 + l2
+		l1, l2 = l2, l1+l2
 	}
 	return l2
 }
@@ -221,17 +223,14 @@ type Solution struct {
 	original []int
 }
 
-
 func Constructor(nums []int) Solution {
 	return Solution{original: nums}
 }
-
 
 /** Resets the array to its original configuration and return it. */
 func (this *Solution) Reset() []int {
 	return this.original
 }
-
 
 /** Returns a random shuffling of the array. */
 func (this *Solution) Shuffle() []int {
@@ -247,29 +246,183 @@ func (this *Solution) Shuffle() []int {
 	return shuffled
 }
 
+// LeetCode: https://leetcode.com/problems/fizz-buzz/description/
+// my: https://leetcode.com/submissions/detail/115534964/
+func FizzBuzz(n int) []string {
+	if n < 0 {
+		return []string{}
+	}
+	strings := make([]string, n)
+	for i := 1; i <= n; i++ {
+		three := i % 3
+		five := i % 5
+		if three == 0 {
+			if five == 0 {
+				strings[i-1] = "FizzBuzz"
+			} else {
+				strings[i-1] = "Fizz"
+			}
+		} else if five == 0 {
+			strings[i-1] = "Buzz"
+		} else {
+			strings[i-1] = strconv.Itoa(i)
+		}
+	}
+	return strings
+}
+
+// https://leetcode.com/problems/min-stack/description/
+// my: https://leetcode.com/submissions/detail/118220020/
+type MinStack struct {
+	nums []int
+	min  []int
+}
+
+/** initialize your data structure here. */
+func ConstructorMS() MinStack {
+	return MinStack{nums: []int{}, min: []int{}}
+}
+
+func (this *MinStack) Push(x int) {
+	this.nums = append(this.nums, x)
+	minlen := len(this.min)
+	if minlen < 1 || x <= this.min[minlen-1] {
+		this.min = append(this.min, x)
+	}
+}
+
+func (this *MinStack) Pop() {
+	nlen := len(this.nums)
+	if nlen == 0 {
+		return
+	}
+	mlen := len(this.min)
+	if this.min[mlen-1] == this.nums[nlen-1] {
+		this.min = this.min[:mlen-1]
+	}
+	this.nums = this.nums[:nlen-1]
+}
+
+func (this *MinStack) Top() int {
+	return this.nums[len(this.nums)-1]
+}
+
+func (this *MinStack) GetMin() int {
+	mlen := len(this.min)
+	if mlen == 0 {
+		return 0
+	}
+	return this.min[mlen-1]
+}
+
+func (ms *MinStack) Print() {
+	fmt.Println(ms.nums)
+	fmt.Println(ms.min)
+}
+
+// https://leetcode.com/problems/find-peak-element/description/
+// my: https://leetcode.com/submissions/detail/118398015/
+func FindPeakElement(nums []int) int {
+	left, right := 0, len(nums)
+	for i := (right + left) / 2; right-left != 0; i = (right + left) / 2 {
+		if i-1 >= left && nums[i-1] >= nums[i] {
+			right = i
+		} else if i+1 < right && nums[i+1] >= nums[i] {
+			left = i
+		} else {
+			return i
+		}
+	}
+	return right + left/2
+}
+
+// my: https://leetcode.com/submissions/detail/118412320/
+func LargestNumber(nums []int) string {
+	r := ln(nums)
+	if len(r) > 0 && r[0] == '0' {
+		return "0"
+	}
+	return r
+}
+
+func ln(nums []int) string {
+	left, right := 0, len(nums)-1
+	if right < 0 {
+		return ""
+	}
+	if right == 0 {
+		return strconv.Itoa(nums[right])
+	}
+	pivoti := right / 2
+	pivot := nums[pivoti]
+	var pow, npow int
+	if pivot == 0 {
+		pow = 10
+	} else {
+		pow = int(math.Pow10(int(math.Log10(float64(pivot))) + 1))
+	}
+	nums[pivoti], nums[right] = nums[right], nums[pivoti]
+	for i := 0; i < right; i++ {
+		if nums[i] == 0 {
+			npow = 10
+		} else {
+			npow = int(math.Pow10(int(math.Log10(float64(nums[i]))) + 1))
+		}
+		if nums[i]*pow+pivot >= pivot*npow+nums[i] {
+			nums[left], nums[i] = nums[i], nums[left]
+			left++
+		}
+	}
+	nums[left], nums[right] = nums[right], nums[left]
+	return ln(nums[:left]) + strconv.Itoa(nums[left]) + ln(nums[left+1:])
+}
+func LargestNumber2(nums []int) string {
+	left, right := 0, len(nums)-1
+	if right < 0 {
+		return ""
+	}
+	if right == 0 {
+		return strconv.Itoa(nums[right])
+	}
+	pivoti := right / 2
+	nums[pivoti], nums[right] = nums[right], nums[pivoti]
+	pivotstr := strconv.Itoa(nums[right])
+	var first, second int
+	for i := 0; i < right; i++ {
+		first, _ = strconv.Atoi(strconv.Itoa(nums[i]) + pivotstr)
+		second, _ = strconv.Atoi(pivotstr + strconv.Itoa(nums[i]))
+		if first >= second {
+			nums[left], nums[i] = nums[i], nums[left]
+			left++
+		}
+	}
+	nums[left], nums[right] = nums[right], nums[left]
+	return LargestNumber(nums[:left]) + strconv.Itoa(nums[left]) + LargestNumber(nums[left+1:])
+}
+
 func fmtholder() {
 	fmt.Println("test")
 }
 
 func Qsort(arr []int) []int {
-    alen := len(arr)
+	alen := len(arr)
 
-    if alen <= 1 {
-        return arr
-    }
-    left, right := 0, alen - 1
-    pivot := arr[right]
-    for i := range arr {
-        if arr[i] < pivot {
-            arr[i], arr[left] = arr[left], arr[i]
-            left++
-        }
-    }
+	if alen <= 1 {
+		return arr
+	}
+	left, right := 0, alen-1
+	pivot := arr[right]
+	for i := range arr {
+		if arr[i] < pivot {
+			arr[i], arr[left] = arr[left], arr[i]
+			left++
+		}
+	}
 
-    arr[left], arr[right] = arr[right], arr[left]
+	arr[left], arr[right] = arr[right], arr[left]
 
-    Qsort(arr[:left])
-    Qsort(arr[left + 1:])
+	Qsort(arr[:left])
+	Qsort(arr[left+1:])
 
-    return arr
+	return arr
 }
